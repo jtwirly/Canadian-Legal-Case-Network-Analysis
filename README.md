@@ -2,6 +2,8 @@
 
 This project involves exploratory network analyses of Canadian cases at SCC, ONCA, FC, and SST, built on Label Studio annotation exports of decisions. It uses NetworkX to surface citation authority, judicial co-occurrence, dissent patterns, and statutory frequency.
 
+Click through to the different project files to see the various analyses.
+
 ## Sample Analyses 
 
 SCC 2019:
