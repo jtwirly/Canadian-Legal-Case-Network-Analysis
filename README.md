@@ -1,4 +1,4 @@
-# Canadian-Cases-Network-Analysis
+# Canadian Legal Case Network Analysis
 
 This project involves exploratory network analyses of Canadian cases at SCC, ONCA, FC, and SST, built on Label Studio annotation exports of decisions. It uses NetworkX to surface citation authority, judicial co-occurrence, dissent patterns, and statutory frequency.
 
