@@ -7,4 +7,4 @@ Sample analysis (Federal Court August 2025):
 
 The data sets used in this project were created during the A2AJ Research Sprint using Label Studio. To learn more about A2AJ, visit https://a2aj.ca/
 
-Claude was used in the analysis of the data.
+Claude was used in the network analysis of the data.
