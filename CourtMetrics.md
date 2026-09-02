@@ -1,6 +1,6 @@
 # Court Metrics
 
-This data set contains 184,565 decisions across 14 courts from 1877 to 2026, with per-decision metrics. NetworkX was used to analyze it
+This data set contains 184,565 decisions across 14 courts from 1877 to 2026, with per-decision metrics. Claude and NetworkX were used to analyze it.
 
 ## Court Similarity Graph
 
@@ -22,7 +22,7 @@ Five panels:
 
 ## Individual Charts
 
-** A court trend-similarity graph **
+**A court trend-similarity graph**
 
 <img width="2141" height="1603" alt="court_network" src="https://github.com/user-attachments/assets/edd6ad20-8519-4850-b72c-2ec7e7f7c868" />
 <img width="1961" height="1061" alt="court_centrality" src="https://github.com/user-attachments/assets/f0bdfea7-caaa-4741-9267-14cedce8f0e8" />
