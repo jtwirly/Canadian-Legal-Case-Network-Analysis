@@ -4,7 +4,7 @@ This data set contains 184,565 decisions across 14 courts from 1877 to 2026, wit
 
 ## Court Similarity Graph
 
-<img width="3334" height="4317" alt="court_metrics_analysis" src="https://github.com/user-attachments/assets/4d12de0c-8beb-4ca3-95d8-c47ea91b2337" />
+<img width="3334" height="4638" alt="court_metrics_analysis (1)" src="https://github.com/user-attachments/assets/84b4a15f-b25f-471d-a741-8b2cf2ccb729" />
 
 The network here is a **court similarity graph** built from cosine similarity of each court's metric profile (word count, FK grade, citation count). 
 
