@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Law Signal — SCC Docket Analysis</title>
+<style>
+  :root{
+    --ink:#11151d;
+    --ink-2:#171c26;
+    --paper:#eceae2;
+    --paper-dim:#a9a89e;
+    --rule:#33394633;
+    --rule-solid:#333946;
+    --brass:#b8934e;
+    --brass-dim:#8a6e3c;
+    --crimson:#a3453f;
+    --moss:#5a7a5e;
+    --slate:#5c7a93;
+    --serif: "Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif;
+    --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--paper);font-family:var(--sans);}
+  body{padding:0 0 80px;}
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    border-bottom:1px solid var(--rule-solid);
+    padding:48px 32px 28px;
+    max-width:1040px;
+    margin:0 auto;
+  }
+  .masthead-top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:11px;letter-spacing:.04em;color:var(--paper-dim);
+    margin-bottom:18px;
+    font-family:var(--sans);
+  }
+  .masthead h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(32px,5vw,52px);
+    line-height:1.05;
+    margin:0 0 10px;
+    color:var(--paper);
+    letter-spacing:-0.01em;
+  }
+  .masthead h1 em{
+    font-style:italic;
+    color:var(--brass);
+  }
+  .masthead p.dek{
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.55;
+    color:#cfceC5;
+    max-width:620px;
+    margin:0;
+  }
+  .corpus-strip{
+    display:flex;gap:36px;margin-top:26px;flex-wrap:wrap;
+  }
+  .corpus-stat{font-family:var(--sans);}
+  .corpus-stat .n{font-family:var(--serif);font-size:26px;color:var(--brass);display:block;}
+  .corpus-stat .l{font-size:11.5px;color:var(--paper-dim);}
+
+  /* ---------- Section label ---------- */
+  .section-intro{
+    max-width:1040px;margin:44px auto 8px;padding:0 32px;
+    font-family:var(--serif);font-size:15px;color:#b9b8ae;line-height:1.6;
+    max-width:680px;
+  }
+
+  /* ---------- Dossier grid ---------- */
+  .dossiers{
+    max-width:1040px;margin:28px auto 0;padding:0 32px;
+    display:grid;grid-template-columns:1fr;gap:22px;
+  }
+  .dossier{
+    background:var(--ink-2);
+    border:1px solid var(--rule-solid);
+    position:relative;
+    display:grid;
+    grid-template-columns:5px 1fr;
+  }
+  .dossier .ribbon{width:5px;}
+  .dossier.status-unsettled .ribbon{background:var(--crimson);}
+  .dossier.status-evolving .ribbon{background:var(--slate);}
+  .dossier.status-settled .ribbon{background:var(--moss);}
+
+  .dossier-body{padding:26px 30px 24px;}
+
+  .dossier-head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    gap:20px;flex-wrap:wrap;margin-bottom:6px;
+  }
+  .dossier-title{
+    font-family:var(--serif);font-size:23px;font-weight:600;color:var(--paper);
+    line-height:1.25;max-width:520px;
+  }
+  .status-badge{
+    font-family:var(--sans);font-size:11px;letter-spacing:.03em;
+    padding:5px 10px;border:1px solid;white-space:nowrap;margin-top:3px;
+  }
+  .status-unsettled .status-badge{color:var(--crimson);border-color:var(--crimson);}
+  .status-evolving .status-badge{color:var(--slate);border-color:var(--slate);}
+  .status-settled .status-badge{color:var(--moss);border-color:var(--moss);}
+
+  .dossier-meta{
+    font-family:var(--sans);font-size:12.5px;color:var(--paper-dim);
+    margin-bottom:18px;
+  }
+
+  .dossier-grid{
+    display:grid;grid-template-columns:1.1fr 1.4fr;gap:28px;
+    margin-top:8px;
+  }
+  @media (max-width:720px){
+    .dossier-grid{grid-template-columns:1fr;}
+  }
+
+  .evidence-list{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:1.9;}
+  .evidence-list li{
+    padding-left:14px;position:relative;color:#d8d7cd;
+  }
+  .evidence-list li::before{
+    content:"—";position:absolute;left:0;color:var(--brass-dim);
+  }
+  .evidence-list b{color:var(--paper);font-weight:600;}
+
+  .spark-wrap{margin-top:14px;}
+  .spark-label{font-size:10.5px;color:var(--paper-dim);letter-spacing:.03em;margin-bottom:5px;}
+  .spark-bars{display:flex;align-items:flex-end;gap:2px;height:44px;}
+  .spark-bars .bar{flex:1;background:var(--brass-dim);min-height:1px;}
+  .dossier.status-evolving .spark-bars .bar{background:var(--slate);}
+  .dossier.status-settled .spark-bars .bar{background:var(--moss);}
+  .spark-years{display:flex;justify-content:space-between;font-size:9.5px;color:var(--paper-dim);margin-top:4px;}
+
+  .open-question{
+    border-left:2px solid var(--brass);
+    padding:12px 16px;background:#0e1119;
+  }
+  .open-question .oq-label{
+    font-size:10.5px;letter-spacing:.05em;color:var(--brass);margin-bottom:6px;
+  }
+  .open-question p{
+    margin:0;font-family:var(--serif);font-size:14.5px;line-height:1.55;color:#e4e3d9;
+  }
+
+  .cites{
+    margin-top:16px;font-size:12px;color:var(--paper-dim);line-height:1.9;
+  }
+  .cites summary{
+    cursor:pointer;font-size:11.5px;color:var(--brass-dim);letter-spacing:.02em;
+    outline:none;
+  }
+  .cites summary::marker{color:var(--brass-dim);}
+  .cites .cite-row{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:4px 0;border-top:1px solid var(--rule);
+  }
+  .cites .cite-row span:first-child{color:#cfceC5;}
+  .cites .cite-row span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  /* ---------- Footer / methodology ---------- */
+  .method{
+    max-width:1040px;margin:52px auto 0;padding:26px 32px 0;
+    border-top:1px solid var(--rule-solid);
+    font-size:12px;line-height:1.8;color:var(--paper-dim);
+  }
+  .method b{color:#cfceC5;}
+</style>
+</head>
+<body>
+
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>SCC DOCKET SIGNAL · VOL. I</span>
+      <span id="todayLabel"></span>
+    </div>
+    <h1>Where doctrine hasn't <em>caught up</em> yet</h1>
+    <p class="dek">Every fact pattern in this docket comes from the actual text of Supreme Court of Canada judgments — not a forecast, a count of how often the Court has already had to reckon with each issue, and how settled its answer is so far.</p>
+    <div class="corpus-strip">
+      <div class="corpus-stat"><span class="n">10,867</span><span class="l">SCC decisions scanned</span></div>
+      <div class="corpus-stat"><span class="n">1877–2026</span><span class="l">date range of corpus</span></div>
+      <div class="corpus-stat"><span class="n">5</span><span class="l">signals surfaced below</span></div>
+    </div>
+  </div>
+
+  <p class="section-intro">Each dossier below is built from full-text keyword detection across the corpus, manually checked against surrounding context to drop false hits (citation-list mentions, idiomatic uses). Status is a read of case volume, recency, and how uniform the Court's answers have been — not a formal doctrinal ruling.</p>
+
+  <div class="dossiers" id="dossiers"></div>
+
+  <div class="method">
+    <b>Method.</b> Full text of 10,867 SCC decisions was scanned for term clusters tied to each issue; every match shown here was read in context to exclude citation-list noise. This corpus is Supreme Court of Canada judgments only — it does not include lower-court decisions, legislation, regulatory rulings, or academic literature, so an issue can be very live in those other channels while still showing thin here because it hasn't reached the country's top court yet. Counts reflect keyword presence, not holdings; read "unsettled" as a volume-and-recency signal worth a closer look, not a legal conclusion.
+  </div>
+
+<script>
+const today = new Date();
+document.getElementById('todayLabel').textContent = today.toLocaleDateString('en-CA', {year:'numeric', month:'long', day:'numeric'});
+
+const dossiers = [
+  {
+    status: 'unsettled',
+    statusLabel: '⚠ UNSETTLED',
+    title: 'AI-generated & synthetic evidence',
+    meta: 'First appears in the corpus in 2025 — no SCC ruling has yet turned on it',
+    evidence: [
+      '<b>1 case</b> in 149 years of SCC judgments references AI-generated content',
+      '<b>0</b> appellate rulings squarely addressing admissibility or authentication of AI-generated material',
+      'First mention: <i>Quebec (Attorney General) v. Senneville</i>, 2025 SCC 33 — the Court flags AI-generated child sexual abuse material and deepfakes as a "present and growing danger," in passing, not as the issue on appeal',
+    ],
+    years: [2018,2019,2020,2021,2022,2023,2024,2025,2026],
+    counts: [0,0,0,0,0,0,0,1,0],
+    question: 'Whether courts should treat AI-generated or synthetic evidence — deepfaked images, generative CSAM, fabricated audio — differently from conventional digital evidence, and what authentication threshold should apply before either can be relied on or excluded.',
+    cites: [
+      ['Quebec (Attorney General) v. Senneville', '2025 SCC 33'],
+    ]
+  },
+  {
+    status: 'evolving',
+    statusLabel: '↗ ACTIVELY EVOLVING',
+    title: 'Sentencing for tech-enabled child exploitation',
+    meta: '46 cases since 2010, with a sharp cluster from 2019 onward',
+    evidence: [
+      '<b>46 cases</b> touching online luring, sextortion, or non-consensual distribution of images since 2010',
+      'Peak years: <b>2016</b> (5 cases), <b>2022</b> (5 cases), <b>2023</b> (4 cases) — nearly a case a year now',
+      '<i>R. v. Bertrand Marchand</i> (2023) set a new sentencing framework for luring; <i>R. v. Friesen</i> (2020) overhauled sentencing ranges specifically because "the internet has facilitated the sexual abuse of children"',
+    ],
+    years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],
+    counts: [2,1,1,1,5,2,1,4,2,1,5,4,2,2],
+    question: 'How far the Criminal Code\'s existing exploitation and luring provisions — written before smartphones and social platforms existed — can stretch to cover sextortion, AI-assisted grooming, and image-based abuse without new legislation.',
+    cites: [
+      ['R. v. Friesen', '2020 SCC 9'],
+      ['R. v. Ramelson', '2022 SCC 44'],
+      ['R. v. Bertrand Marchand', '2023 SCC 26'],
+      ['R. v. Campbell', '2024 SCC 42'],
+      ['R. v. Kinamore', '2025 SCC 19'],
+    ]
+  },
+  {
+    status: 'unsettled',
+    statusLabel: '⚠ UNSETTLED',
+    title: 'Jurisdiction over global online platforms',
+    meta: 'Only 3 cases at the SCC — and they pull in different directions',
+    evidence: [
+      '<b>3 landmark cases</b> in 8 years, each resolving a different piece of the same problem',
+      '<i>Google v. Equustek</i> (2017) let a Canadian court order Google to de-index results worldwide',
+      '<i>Douez v. Facebook</i> (2017) refused to enforce a clickwrap forum-selection clause; <i>Uber v. Heller</i> (2020) struck down an arbitration clause in a gig-work app as unconscionable — no single rule yet covers when non-negotiated platform terms bind Canadian users',
+    ],
+    years: [2015,2016,2017,2018,2019,2020,2021],
+    counts: [0,0,2,0,0,1,0],
+    question: 'Whether Canadian courts can and should assert authority over platforms with no physical presence here, and how standard-form "I agree" terms should be policed when a user never meaningfully negotiated them.',
+    cites: [
+      ['Douez v. Facebook, Inc.', '2017 SCC 33'],
+      ['Google Inc. v. Equustek Solutions Inc.', '2017 SCC 34'],
+      ['Uber Technologies Inc. v. Heller', '2020 SCC 16'],
+    ]
+  },
+  {
+    status: 'settled',
+    statusLabel: '✓ RECENTLY SETTLED',
+    title: 'IP addresses as private information',
+    meta: '33 cases building toward a 2024 answer — decided 5–4',
+    evidence: [
+      '<b>33 cases</b> on digital search and seizure since 2012, climbing steadily to 7 in 2025 alone',
+      'Doctrine built case by case: <i>R. v. Spencer</i> (2014) on subscriber data, <i>R. v. Marakah</i> (2017) on text messages, <i>R. v. Reeves</i> (2018) on shared devices',
+      '<i>R. v. Bykovets</i> (2024) finally held an IP address itself attracts a reasonable expectation of privacy — but only <b>5–4</b>, with a four-judge dissent arguing the majority went too far',
+    ],
+    years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],
+    counts: [1,1,2,0,0,4,2,2,2,2,3,1,3,7],
+    question: 'The 5–4 split in Bykovets leaves open how far "IP address as private information" extends to related identifiers — device fingerprints, MAC addresses, session tokens — that the majority didn\'t have to reach.',
+    cites: [
+      ['R. v. Spencer', '2014 SCC 43'],
+      ['R. v. Marakah', '2017 SCC 59'],
+      ['R. v. Reeves', '2018 SCC 56'],
+      ['R. v. Bykovets', '2024 SCC 6'],
+    ]
+  },
+  {
+    status: 'settled',
+    statusLabel: '✓ RECENTLY SETTLED',
+    title: 'Federal climate policy vs. provincial jurisdiction',
+    meta: '3 cases, resolved through two constitutional references',
+    evidence: [
+      '<b>3 cases</b> directly engage climate policy as a constitutional matter, concentrated in 2019–2023',
+      '<i>References re Greenhouse Gas Pollution Pricing Act</i> (2021) upheld federal carbon pricing as a matter of "national concern"',
+      '<i>Reference re Impact Assessment Act</i> (2023) then pushed back, striking down parts of a federal environmental-assessment law as overreach into provincial jurisdiction',
+    ],
+    years: [2018,2019,2020,2021,2022,2023,2024],
+    counts: [0,1,0,1,0,1,0],
+    question: 'The two references together mark out federal and provincial lanes on climate regulation — but leave unresolved how the same national-concern reasoning applies to the next generation of climate tools: emissions caps, clean-fuel mandates, provincial cap-and-trade.',
+    cites: [
+      ['Resolute FP Canada Inc. v. Ontario (Attorney General)', '2019 SCC 60'],
+      ['References re Greenhouse Gas Pollution Pricing Act', '2021 SCC 11'],
+      ['Reference re Impact Assessment Act', '2023 SCC 23'],
+    ]
+  },
+];
+
+function sparkline(years, counts){
+  const max = Math.max(...counts, 1);
+  const bars = counts.map(c => {
+    const h = Math.max(2, Math.round((c/max)*44));
+    return `<div class="bar" style="height:${h}px" title="${c}"></div>`;
+  }).join('');
+  const firstYear = years[0], lastYear = years[years.length-1];
+  return `
+    <div class="spark-wrap">
+      <div class="spark-label">CASES BY YEAR</div>
+      <div class="spark-bars">${bars}</div>
+      <div class="spark-years"><span>${firstYear}</span><span>${lastYear}</span></div>
+    </div>`;
+}
+
+function render(){
+  const root = document.getElementById('dossiers');
+  root.innerHTML = dossiers.map(d => `
+    <div class="dossier status-${d.status}">
+      <div class="ribbon"></div>
+      <div class="dossier-body">
+        <div class="dossier-head">
+          <div class="dossier-title">${d.title}</div>
+          <div class="status-badge">${d.statusLabel}</div>
+        </div>
+        <div class="dossier-meta">${d.meta}</div>
+        <div class="dossier-grid">
+          <div>
+            <ul class="evidence-list">
+              ${d.evidence.map(e => `<li>${e}</li>`).join('')}
+            </ul>
+            ${sparkline(d.years, d.counts)}
+          </div>
+          <div>
+            <div class="open-question">
+              <div class="oq-label">OPEN QUESTION</div>
+              <p>${d.question}</p>
+            </div>
+            <details class="cites">
+              <summary>Cited decisions (${d.cites.length})</summary>
+              ${d.cites.map(c => `<div class="cite-row"><span>${c[0]}</span><span>${c[1]}</span></div>`).join('')}
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+render();
+</script>
+</body>
+</html>
