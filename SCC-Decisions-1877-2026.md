@@ -1,6 +1,6 @@
 # SCC Decisions 1877-2026
 
-This analyzes the SCC decisions from 1877 to 2026 with full text, which allowed for extracting actual citation links, judge panels, subjects, and provincial origins. 
+This analyzes the SCC decisions from 1877 to mid-2026 with full text, which allowed for extracting actual citation links, judge panels, subjects, and provincial origins. 
 
 <img width="3443" height="4896" alt="scc_decisions_analysis (3)" src="https://github.com/user-attachments/assets/e5abdc36-6f1a-40c5-b551-735a53fc2d7a" />
 
