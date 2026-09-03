@@ -1,4 +1,4 @@
-# Court Metrics 1877-2026 - Future Law Predictor
+# Court Metrics 1877-2026 - Future Law Detector
 
 https://claude.ai/public/artifacts/a3a964c6-b55b-43fc-94df-ab85168fa60c
 
